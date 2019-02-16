@@ -47,7 +47,9 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
      */
     public function tokenizeHTML($html, $config, $context)
     {
+        set_error_handler(array($this, 'muteErrorHandler'));
         $html = $this->normalize($html, $config, $context);
+        restore_error_handler();
 
         // attempt to armor stray angled brackets that cannot possibly
         // form tags and thus are probably being used as emoticons
